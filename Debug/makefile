@@ -60,8 +60,8 @@ all: main-build
 main-build: Test_Tesis_BLDC_MC.elf secondary-outputs
 
 # Tool invocations
-Test_Tesis_BLDC_MC.elf Test_Tesis_BLDC_MC.map: $(OBJS) $(USER_OBJS) D:\STM32CubeIDE\workspace_1.12.1\Test_Tesis_BLDC_MC\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Test_Tesis_BLDC_MC.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"D:\STM32CubeIDE\workspace_1.12.1\Test_Tesis_BLDC_MC\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Test_Tesis_BLDC_MC.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Test_Tesis_BLDC_MC.elf Test_Tesis_BLDC_MC.map: $(OBJS) $(USER_OBJS) /home/del/git/Test_Tesis_BLDC_MC/STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Test_Tesis_BLDC_MC.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"/home/del/git/Test_Tesis_BLDC_MC/STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Test_Tesis_BLDC_MC.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

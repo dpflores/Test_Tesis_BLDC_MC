@@ -9,7 +9,7 @@ void microDelay(TIM_HandleTypeDef* tim_device, uint16_t delay)
 }
 
 
-void step (TIM_HandleTypeDef* tim_device, int steps, uint8_t direction, uint16_t delay)
+void step(TIM_HandleTypeDef* tim_device, int steps, uint8_t direction, uint16_t delay)
 {
   int x;
   if (direction == 0) // clockwise

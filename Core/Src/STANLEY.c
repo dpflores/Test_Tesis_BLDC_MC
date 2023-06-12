@@ -6,6 +6,7 @@
  */
 
 #include "STANLEY.h"
+#include <stdlib.h>
 #include <math.h>
 
 float normalizeAngle(float angle){
@@ -34,7 +35,8 @@ float *calcular_posActual(float posX, float posY, float current_speed_rpm, float
 	posX = posX + current_speed_rpm*cos(yaw + ang_direc)*T;
 	posY = posY + current_speed_rpm*sin(yaw + ang_direc)*T;
 
-	static float arr_currPos[2];
+	float *arr_currPos = malloc(sizeof(float) * 2);
+
 	arr_currPos[0]= posX; arr_currPos[1]= posY;
 
 	return arr_currPos;

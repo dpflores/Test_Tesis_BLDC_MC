@@ -25,6 +25,9 @@
 #include "STANLEY.h"
 #include "IMU.h"
 #include "stepper.h"
+
+#include <stdlib.h>
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -63,6 +66,9 @@
 #define STANLEY_K 	3.5f
 #define STANLEY_KS 	0.2f
 #define SAMPLE_TIME_S 0.1f
+
+// Definiciones adicionales
+#define PI 3.141592653589f
 
 /* USER CODE END PD */
 
@@ -136,7 +142,6 @@ float integral = 0;
 uint8_t duty_cycle = 0;
 
 // imu
-const float PI = 3.141592653589f;
 uint8_t euler_readings[IMU_NUMBER_OF_BYTES];
 int16_t euler_data[3];
 float yaw = 0;
@@ -203,6 +208,11 @@ int main(void)
 
   // Inicializamos I2C imu
   BNO055_Init_I2C(&hi2c1);
+
+  // Inicializamos lso controladores
+  PIDController_Init(&pid);
+  StanleyController_Init(&stanley);
+
 
   // Inicializamos los timer timers
   HAL_TIM_Base_Start(&htim1);	// Timer de PWMs (10kH)
@@ -274,11 +284,13 @@ int main(void)
 			  euler_data[0] = (((int16_t)((uint8_t *)(euler_readings))[1] << 8) | ((uint8_t *)(euler_readings))[0]);
 			  yaw = ((float)(euler_data[0]))*PI/180.0/16.0 ; // rad
 
-			  float *arr_currPos;
+			  float *arr_currPos = malloc(sizeof(float) * 2);
+
+			  // como se calcula el ang_direc? debería venir del PAP, es necesario?, ahora está seteado a 0
 			  arr_currPos = calcular_posActual(posX, posY, current_speed_rpm, yaw, ang_direc, SAMPLE_TIME_S);
 
 			  // Recibir por CAN
-			  float arrpath[4]={0.0, 0.0, 0.0, 0.0} // x0, y0, x1, y1. Se deberia recibir por CAN
+			  float arr_path[4]={0.0, 0.0, 0.0, 0.0}; // x0, y0, x1, y1. Se deberia recibir por CAN
 			  // Recibir por CAN
 
 			  steer = StanleyController_Update(&stanley, yaw, current_speed_rpm, arr_currPos, arr_path);
