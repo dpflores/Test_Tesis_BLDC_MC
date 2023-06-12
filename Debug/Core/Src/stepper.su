@@ -1,0 +1,2 @@
+../Core/Src/stepper.c:5:6:microDelay	16	static
+../Core/Src/stepper.c:12:6:step	32	static

@@ -1,0 +1,6 @@
+STANLEY.c:11:7:normalizeAngle	3
+STANLEY.c:24:8:polyFit	1
+STANLEY.c:33:8:calcular_posActual	1
+STANLEY.c:43:6:StanleyController_Init	1
+STANLEY.c:49:7:StanleyController_Update	2
+STANLEY.c:90:6:StanleyController_Reset	1
